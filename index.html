@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartPark - PL/SQL Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div>
+      <h1>Smart<span>Park</span></h1>
+      <p class="subtitle">Automated vehicle parking & billing - PL/SQL logic demo</p>
+    </div>
+    <label class="theme-toggle">
+  <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+  <span class="toggle-track">
+    <span class="toggle-thumb"></span>
+    <span class="icon sun">☀</span>
+    <span class="icon moon">☾</span>
+  </span>
+</label>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="statFree">4</div><div class="l">slots free</div></div>
+    <div class="stat"><div class="n" id="statParked">0</div><div class="l">parked now</div></div>
+    <div class="stat"><div class="n" id="statRevenue">Rs.0</div><div class="l">revenue</div></div>
+  </div>
+
+  <div class="row">
+    <div class="panel">
+      <h2>Entry - allocate_slot()</h2>
+      <p>Finds a free slot, registers vehicle if new, logs entry.</p>
+
+      <label>Vehicle number</label>
+      <input id="vNo" placeholder="PB10AB1234">
+
+      <label>Owner name</label>
+      <input id="vOwner" placeholder="Shreya">
+
+      <label>Vehicle type</label>
+      <select id="vType">
+        <option value="CAR">CAR - Rs.20/hr</option>
+        <option value="BIKE">BIKE - Rs.10/hr</option>
+      </select>
+
+      <button onclick="allocateSlot()">Park vehicle</button>
+      <div class="msg" id="entryMsg"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Lot status</h2>
+      <p>Live view of the SLOTS table.</p>
+      <div class="slots" id="slotGrid"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px;">
+    <h2>Exit - trg_auto_bill</h2>
+    <p>Auto-calculates bill and frees the slot, same as the trigger.</p>
+    <label>Vehicle currently parked</label>
+    <select id="exitSelect"></select>
+    <button class="secondary" onclick="exitVehicle()">Exit & bill</button>
+    <div class="msg" id="exitMsg"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Parking log</h2>
+    <p>Same idea as the cursor report - loops through logs, totals revenue.</p>
+    <table>
+      <thead>
+        <tr><th>Vehicle</th><th>Slot</th><th>Entry</th><th>Exit</th><th>Bill</th><th>Status</th></tr>
+      </thead>
+      <tbody id="logBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
